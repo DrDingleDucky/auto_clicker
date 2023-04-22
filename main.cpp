@@ -114,6 +114,15 @@ int main() {
             std::cout << "you have set rightHoldTime = " << value << " milliseconds"
                       << "\n";
             rightHoldTime = value;
+        } else if (command == "list") {
+            FILE *fp;
+            char buffer[255];
+            fp = fopen("key_codes.txt", "r");
+
+            while (fgets(buffer, 255, fp) != NULL) {
+                printf("%s", buffer);
+            }
+            fclose(fp);
         } else if (command == "help") {
             std::cout << "'leftKey'           - change keybind for left click"
                       << "\n";
@@ -130,6 +139,8 @@ int main() {
             std::cout << "'rightRandomOffset' - change the amount of random offset applied to the right click"
                       << "\n";
             std::cout << "'rightHoldTime'     - change how long the right mouse button is pressed and released"
+                      << "\n";
+            std::cout << "'list'              - list all the key codes and descriptions"
                       << "\n";
             std::cout << "'quit'              - quit the program"
                       << "\n";
