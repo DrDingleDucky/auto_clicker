@@ -1,6 +1,6 @@
 # Auto Clicker
 
-Work in progress.
+A very non-user-friendly auto-clicker.
 
 | Key Code | Key Description           |
 | -------- | ------------------------- |
