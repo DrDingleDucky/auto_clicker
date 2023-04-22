@@ -76,17 +76,20 @@ int main() {
         } else if (command == "leftClickDelay") {
             std::cout << "leftClickDelay = ";
             std::cin >> value;
-            std::cout << "you have set leftClickDelay = " << value << " milliseconds" << "\n";
+            std::cout << "you have set leftClickDelay = " << value << " milliseconds"
+                      << "\n";
             leftClickDelay = value;
         } else if (command == "leftRandomOffset") {
             std::cout << "leftRandomOffset = ";
             std::cin >> value;
-            std::cout << "you have set leftRandomOffset = " << value << " milliseconds" << "\n";
+            std::cout << "you have set leftRandomOffset = " << value << " milliseconds"
+                      << "\n";
             leftRandomOffset = value;
         } else if (command == "leftHoldTime") {
             std::cout << "leftHoldTime = ";
             std::cin >> value;
-            std::cout << "you have set leftHoldTime = " << value << " milliseconds" << "\n";
+            std::cout << "you have set leftHoldTime = " << value << " milliseconds"
+                      << "\n";
             leftHoldTime = value;
         } else if (command == "rightKey") {
             std::cout << "rightKey = ";
@@ -96,20 +99,40 @@ int main() {
         } else if (command == "rightClickDelay") {
             std::cout << "rightClickDelay = ";
             std::cin >> value;
-            std::cout << "you have set rightClickDelay = " << value << " milliseconds" << "\n";
+            std::cout << "you have set rightClickDelay = " << value << " milliseconds"
+                      << "\n";
             rightClickDelay = value;
         } else if (command == "rightRandomOffset") {
             std::cout << "rightRandomOffset = ";
             std::cin >> value;
-            std::cout << "you have set rightRandomOffset = " << value << " milliseconds" << "\n";
+            std::cout << "you have set rightRandomOffset = " << value << " milliseconds"
+                      << "\n";
             rightRandomOffset = value;
         } else if (command == "rightHoldTime") {
             std::cout << "rightHoldTime = ";
             std::cin >> value;
-            std::cout << "you have set rightHoldTime = " << value << " milliseconds" << "\n";
+            std::cout << "you have set rightHoldTime = " << value << " milliseconds"
+                      << "\n";
             rightHoldTime = value;
         } else if (command == "help") {
-            std::cout << "'quit' - quit the program"<< "\n";
+            std::cout << "'leftKey'           - change keybind for left click"
+                      << "\n";
+            std::cout << "'leftClickDelay'    - change left click delay in milliseconds"
+                      << "\n";
+            std::cout << "'leftRandomOffset'  - change the amount of random offset applied to the left click"
+                      << "\n";
+            std::cout << "'leftHoldTime'      - change how long the left mouse button is pressed and released"
+                      << "\n";
+            std::cout << "'rightKey'          - change keybind for right click"
+                      << "\n";
+            std::cout << "'rightClickDelay'   - change right click delay in milliseconds"
+                      << "\n";
+            std::cout << "'rightRandomOffset' - change the amount of random offset applied to the right click"
+                      << "\n";
+            std::cout << "'rightHoldTime'     - change how long the right mouse button is pressed and released"
+                      << "\n";
+            std::cout << "'quit'              - quit the program"
+                      << "\n";
         } else if (command == "quit") {
             terminateThread = true;
             leftThread.join();
