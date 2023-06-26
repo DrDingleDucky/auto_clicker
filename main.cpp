@@ -19,20 +19,29 @@ int rightRandomOffset = 50;
 int rightHoldTime = 0;
 
 std::string keyCodes{table};
-
 bool terminateThread = false;
 
-void leftClicker(int leftKey, int leftClickDelay, int leftRandomOffset, int leftHoldTime) {
-    int leftSubtractedOffset = leftClickDelay - leftRandomOffset;
+void leftClicker(int leftKey,
+                 int leftClickDelay,
+                 int leftRandomOffset,
+                 int leftHoldTime)
+{
     int leftAddedOffset = leftClickDelay + leftRandomOffset;
+    int leftSubtractedOffset = leftClickDelay - leftRandomOffset;
 
-    if (leftSubtractedOffset < 1) {
+    if (leftSubtractedOffset < 1)
+    {
         leftSubtractedOffset = 1;
     }
 
-    while (!terminateThread) {
-        if (GetKeyState(leftKey)) {
-            int randomNumber = ((rand() % (leftAddedOffset - leftSubtractedOffset + 1)) + leftSubtractedOffset);
+    while (!terminateThread)
+    {
+        if (GetKeyState(leftKey))
+        {
+            int leftOffset =
+            leftAddedOffset - leftSubtractedOffset;
+            int randomNumber =
+            rand() % leftOffset + leftSubtractedOffset;
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
             Sleep(leftHoldTime);
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
@@ -41,17 +50,27 @@ void leftClicker(int leftKey, int leftClickDelay, int leftRandomOffset, int left
     }
 }
 
-void rightClicker(int rightKey, int rightClickDelay, int rightRandomOffset, int rightHoldTime) {
-    int rightSubtractedOffset = rightClickDelay - rightRandomOffset;
+void rightClicker(int rightKey,
+                  int rightClickDelay,
+                  int rightRandomOffset,
+                  int rightHoldTime)
+{
     int rightAddedOffset = rightClickDelay + rightRandomOffset;
+    int rightSubtractedOffset = rightClickDelay - rightRandomOffset;
 
-    if (rightSubtractedOffset < 1) {
+    if (rightSubtractedOffset < 1)
+    {
         rightSubtractedOffset = 1;
     }
 
-    while (!terminateThread) {
-        if (GetKeyState(rightKey)) {
-            int randomNumber = (rand() % (rightAddedOffset - rightSubtractedOffset + 1)) + rightSubtractedOffset;
+    while (!terminateThread)
+    {
+        if (GetKeyState(rightKey))
+        {
+            int rightOffset = 
+            rightAddedOffset - rightSubtractedOffset;
+            int randomNumber = 
+            rand() % rightOffset + rightSubtractedOffset;
             mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
             Sleep(rightHoldTime);
             mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
@@ -60,100 +79,160 @@ void rightClicker(int rightKey, int rightClickDelay, int rightRandomOffset, int 
     }
 }
 
-void loadFile() {
+void loadFile()
+{
     std::ifstream file("settings.txt");
     std::string line;
 
-    if (file.is_open()) {
-        while (std::getline(file, line)) {
-            size_t eq = line.find('=');
-            if (eq != std::string::npos) {
-                std::string key = line.substr(0, eq);
-                std::string value = line.substr(eq + 1);
+    if (file.is_open())
+    {
+        while (std::getline(file, line))
+        {
+            size_t equal = line.find('=');
 
-                if (key == "leftKey") {
+            if (equal != std::string::npos)
+            {
+                std::string key = line.substr(0, equal);
+                std::string value = line.substr(equal + 1);
+
+                if (key == "leftKey")
+                {
                     leftKey = std::stoi(value);
-                } else if (key == "leftClickDelay") {
+                }
+                else if (key == "leftClickDelay")
+                {
                     leftClickDelay = std::stoi(value);
-                } else if (key == "leftRandomOffset") {
+                }
+                else if (key == "leftRandomOffset")
+                {
                     leftRandomOffset = std::stoi(value);
-                } else if (key == "leftHoldTime") {
+                }
+                else if (key == "leftHoldTime")
+                {
                     leftHoldTime = std::stoi(value);
-                } else if (key == "rightKey") {
+                }
+                else if (key == "rightKey")
+                {
                     rightKey = std::stoi(value);
-                } else if (key == "rightClickDelay") {
+                }
+                else if (key == "rightClickDelay")
+                {
                     rightClickDelay = std::stoi(value);
-                } else if (key == "rightRandomOffset") {
+                }
+                else if (key == "rightRandomOffset")
+                {
                     rightRandomOffset = std::stoi(value);
-                } else if (key == "rightHoldTime") {
+                }
+                else if (key == "rightHoldTime")
+                {
                     rightHoldTime = std::stoi(value);
                 }
             }
         }
         file.close();
-    } else {
-        std::cout << "unable to open file\n";
+    }
+    else
+    {
+        std::cout << "error: unable to open file\n";
     }
 }
 
-int main() {
+int main()
+{
     loadFile();
-
     srand(time(0));
-
     std::string command;
     int value;
-    while (true) {
-        std::thread leftThread(leftClicker, leftKey, leftClickDelay, leftRandomOffset, leftHoldTime);
-        std::thread rightThread(rightClicker, rightKey, rightClickDelay, rightRandomOffset, rightHoldTime);
 
-        std::cout << "type 'help' for commands: -> ";
+    while (true)
+    {
+        std::thread leftThread(leftClicker,
+                               leftKey,
+                               leftClickDelay,
+                               leftRandomOffset,
+                               leftHoldTime);
+        std::thread rightThread(rightClicker,
+                                rightKey,
+                                rightClickDelay,
+                                rightRandomOffset,
+                                rightHoldTime);
+
+        std::cout << "type 'help' for commands > ";
         std::cin >> command;
-        if (command == "leftKey") {
+        if (command == "leftKey")
+        {
             std::cout << "leftKey = ";
             std::cin >> value;
             std::cout << "you have set leftKey = " << value << "\n";
             leftKey = value;
-        } else if (command == "leftClickDelay") {
+        }
+        else if (command == "leftClickDelay")
+        {
             std::cout << "leftClickDelay = ";
             std::cin >> value;
-            std::cout << "you have set leftClickDelay = " << value << " milliseconds"
-                      << "\n";
+            std::cout << "you have set leftClickDelay = "
+                      << value
+                      << " milliseconds\n";
             leftClickDelay = value;
-        } else if (command == "leftRandomOffset") {
+        }
+        else if (command == "leftRandomOffset")
+        {
             std::cout << "leftRandomOffset = ";
             std::cin >> value;
-            std::cout << "you have set leftRandomOffset = " << value << " milliseconds"
-                      << "\n";
+            std::cout << "you have set leftRandomOffset = "
+                      << value
+                      << " milliseconds\n";
             leftRandomOffset = value;
-        } else if (command == "leftHoldTime") {
+        }
+        else if (command == "leftHoldTime")
+        {
             std::cout << "leftHoldTime = ";
             std::cin >> value;
-            std::cout << "you have set leftHoldTime = " << value << " milliseconds\n";
+            std::cout << "you have set leftHoldTime = "
+                      << value
+                      << " milliseconds\n";
             leftHoldTime = value;
-        } else if (command == "rightKey") {
+        }
+        else if (command == "rightKey")
+        {
             std::cout << "rightKey = ";
             std::cin >> value;
             std::cout << "you have set rightKey = " << value << "\n";
             rightKey = value;
-        } else if (command == "rightClickDelay") {
+        }
+        else if (command == "rightClickDelay")
+        {
             std::cout << "rightClickDelay = ";
             std::cin >> value;
-            std::cout << "you have set rightClickDelay = " << value << " milliseconds\n";
+            std::cout << "you have set rightClickDelay = "
+                      << value
+                      << " milliseconds\n";
             rightClickDelay = value;
-        } else if (command == "rightRandomOffset") {
+        }
+        else if (command == "rightRandomOffset")
+        {
             std::cout << "rightRandomOffset = ";
             std::cin >> value;
-            std::cout << "you have set rightRandomOffset = " << value << " milliseconds\n";
+            std::cout << "you have set rightRandomOffset = "
+                      << value
+                      << " milliseconds\n";
             rightRandomOffset = value;
-        } else if (command == "rightHoldTime") {
+        }
+        else if (command == "rightHoldTime")
+        {
             std::cout << "rightHoldTime = ";
             std::cin >> value;
-            std::cout << "you have set rightHoldTime = " << value << " milliseconds\n";
+            std::cout << "you have set rightHoldTime = "
+                      << value
+                      << " milliseconds\n";
             rightHoldTime = value;
-        } else if (command == "list") {
+        }
+        else if (command == "list")
+        {
             std::cout << keyCodes;
-        } else if (command == "help") {
+        }
+        else if (command == "help")
+        {
             std::cout << "'leftKey'           - change keybind for left click\n";
             std::cout << "'leftClickDelay'    - change left click delay in milliseconds\n";
             std::cout << "'leftRandomOffset'  - change the amount of random offset applied to the left click\n";
@@ -164,15 +243,19 @@ int main() {
             std::cout << "'rightHoldTime'     - change how long the right mouse button is pressed and released\n";
             std::cout << "'list'              - list all the key codes and descriptions\n";
             std::cout << "'quit'              - quit the program\n";
-        } else if (command == "quit") {
+        }
+        else if (command == "quit")
+        {
             terminateThread = true;
             leftThread.join();
             rightThread.join();
             break;
-        } else {
+        }
+        else
+        {
             std::cout << "'" << command << "' is not recognized\n";
         }
-
+        
         terminateThread = true;
         leftThread.join();
         rightThread.join();
