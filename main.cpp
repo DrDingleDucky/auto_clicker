@@ -21,10 +21,11 @@ int rightHoldTime = 0;
 std::string keyCodes{table};
 bool terminateThread = false;
 
-void leftClicker(int leftKey,
-                 int leftClickDelay,
-                 int leftRandomOffset,
-                 int leftHoldTime)
+void leftClicker(
+    int leftKey,
+    int leftClickDelay,
+    int leftRandomOffset,
+    int leftHoldTime)
 {
     int leftAddedOffset = leftClickDelay + leftRandomOffset;
     int leftSubtractedOffset = leftClickDelay - leftRandomOffset;
@@ -39,9 +40,9 @@ void leftClicker(int leftKey,
         if (GetKeyState(leftKey))
         {
             int leftOffset =
-            leftAddedOffset - leftSubtractedOffset;
+                leftAddedOffset - leftSubtractedOffset;
             int randomNumber =
-            rand() % leftOffset + leftSubtractedOffset;
+                rand() % leftOffset + leftSubtractedOffset;
             mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
             Sleep(leftHoldTime);
             mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
@@ -50,10 +51,11 @@ void leftClicker(int leftKey,
     }
 }
 
-void rightClicker(int rightKey,
-                  int rightClickDelay,
-                  int rightRandomOffset,
-                  int rightHoldTime)
+void rightClicker(
+    int rightKey,
+    int rightClickDelay,
+    int rightRandomOffset,
+    int rightHoldTime)
 {
     int rightAddedOffset = rightClickDelay + rightRandomOffset;
     int rightSubtractedOffset = rightClickDelay - rightRandomOffset;
@@ -67,10 +69,10 @@ void rightClicker(int rightKey,
     {
         if (GetKeyState(rightKey))
         {
-            int rightOffset = 
-            rightAddedOffset - rightSubtractedOffset;
-            int randomNumber = 
-            rand() % rightOffset + rightSubtractedOffset;
+            int rightOffset =
+                rightAddedOffset - rightSubtractedOffset;
+            int randomNumber =
+                rand() % rightOffset + rightSubtractedOffset;
             mouse_event(MOUSEEVENTF_RIGHTDOWN, 0, 0, 0, 0);
             Sleep(rightHoldTime);
             mouse_event(MOUSEEVENTF_RIGHTUP, 0, 0, 0, 0);
@@ -255,7 +257,7 @@ int main()
         {
             std::cout << "'" << command << "' is not recognized\n";
         }
-        
+
         terminateThread = true;
         leftThread.join();
         rightThread.join();
